@@ -1,48 +1,63 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
 </head>
 
 <SCRIPT>
-$(document).ready(function() {
-    $.ajax({
-        type: "GET",
-        url: "https://royaleapi.com/tournament/V2QCUG9/csv",
-        dataType: "text",
-        success: function(data) {processData(data);}
-     });
-});
+function doStuff(data) {
+document.getElementById('loading').innerHTML=''
 
-function processData(allText) {
-    var record_num = 5;  // or however many elements there are in each row
-    var allTextLines = allText.split(/\r\n|\n/);
-    var entries = allTextLines[0].split(',');
-    var lines = [];
-
-    var headings = entries.splice(0,record_num);
-    while (entries.length>0) {
-        var tarr = [];
-        for (var j=0; j<record_num; j++) {
-            tarr.push(headings[j]+":"+entries.shift());
-        }
-        lines.push(tarr);
-    }
-    // alert(lines);
+for (i = 1; i < 16; i++) { 
+  document.getElementById('input'+i).value='';
 }
+
+for (i = 1; i < data.length-1; i++) { 
+
+  if (i<16) { 	
+  document.getElementById('input'+i).value=data[i][1]+' / ' +data[i][4];
+}
+
+}
+
+}
+
+function parseData(url, callBack) {
+    document.getElementById('loading').innerHTML='<b>searching...</b>';
+    Papa.parse(url, {
+        download: true,
+        dynamicTyping: true,
+        error: errorAlert,
+        complete: function(results) {
+            callBack(results.data);
+        }
+    });
+}
+
+function errorAlert() {
+	alert('try again!')
+}
+
 </SCRIPT>
 
+<div style="width:400px">
+enter tournament tag: <input type="test" id="tourtag" value="V2QCUG9"</input><button type=button onclick="parseData('https://cors.io/?https://royaleapi.com/tournament/'+document.getElementById('tourtag').value+'/csv', doStuff);">Get Players!</button><div style="float:right" id="loading"></div><BR><BR>
 
-<input type="text" id="input1" value=""></input><BR>
-<input type="text" id="input2" value=""></input><BR>
-<input type="text" id="input3" value=""></input><BR>
-<input type="text" id="input4" value=""></input><BR>
-<input type="text" id="input5" value=""></input><BR>
-<input type="text" id="input6" value=""></input><BR>
-<input type="text" id="input7" value=""></input><BR>
-<input type="text" id="input8" value=""></input><BR>
-<input type="text" id="input9" value=""></input><BR>
-<input type="text" id="input10" value=""></input><BR>
-<input type="text" id="input11" value=""></input><BR>
-<input type="text" id="input12" value=""></input><BR>
-<input type="text" id="input13" value=""></input><BR>
-<input type="text" id="input14" value=""></input><BR>
-<input type="text" id="input15" value=""></input><BR>
+
+
+1. <input type="text" id="input1" value=""></input><BR>
+2. <input type="text" id="input2" value=""></input><BR>
+3. <input type="text" id="input3" value=""></input><BR>
+4. <input type="text" id="input4" value=""></input><BR>
+5. <input type="text" id="input5" value=""></input><BR>
+6. <input type="text" id="input6" value=""></input><BR>
+7. <input type="text" id="input7" value=""></input><BR>
+8. <input type="text" id="input8" value=""></input><BR>
+9. <input type="text" id="input9" value=""></input><BR>
+10.<input type="text" id="input10" value=""></input><BR>
+11.<input type="text" id="input11" value=""></input><BR>
+12.<input type="text" id="input12" value=""></input><BR>
+13.<input type="text" id="input13" value=""></input><BR>
+14.<input type="text" id="input14" value=""></input><BR>
+15.<input type="text" id="input15" value=""></input><BR>
+
+</div>
