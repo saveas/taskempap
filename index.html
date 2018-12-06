@@ -2,8 +2,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
 </head>
-
+<STYLE>
+#winner {
+font-family: "Arial Black", Gadget, sans-serif;
+font-size: 31px;
+letter-spacing: 2px;
+word-spacing: 2px;
+color: #000000;
+font-weight: 700;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;
+}
+</STYLE>
 <SCRIPT>
+
 function doStuff(data) {
 document.getElementById('loading').innerHTML=''
 
@@ -37,9 +51,35 @@ function errorAlert() {
 	alert('try again!')
 }
 
+
+function calculateweights() {
+k=0;
+s=document.getElementById('weightrange').value;
+if (s==1) {p=1;}
+if (s==2) {p=2;}
+if (s==3) {p=4;}
+min=16
+max=1
+
+result= 16-Math.floor(min + (max - min) * Math.pow(Math.random(), p));
+
+
+//console.log(result);
+
+document.getElementById('winner').innerHTML='The Winner is:<BR>'+document.getElementById('input'+result).value;
+
+}
+
+
+function sliderlegend() {
+s=document.getElementById('weightrange').value;
+if (s==1) {document.getElementById('slidertext').innerHTML='same chance for all';}
+if (s==2) {document.getElementById('slidertext').innerHTML='normal';}
+if (s==3) {document.getElementById('slidertext').innerHTML='boost top players';}
+}
 </SCRIPT>
 
-<div style="width:400px">
+<div style="width:600px">
 enter tournament tag: <input type="test" id="tourtag" value="V2QCUG9"</input><button type=button onclick="parseData('https://cors.io/?https://royaleapi.com/tournament/'+document.getElementById('tourtag').value+'/csv', doStuff);">Get Players!</button><div style="float:right" id="loading"></div><BR><BR>
 
 
@@ -60,4 +100,15 @@ enter tournament tag: <input type="test" id="tourtag" value="V2QCUG9"</input><bu
 14.<input type="text" id="input14" value=""></input><BR>
 15.<input type="text" id="input15" value=""></input><BR>
 
+
+<BR><BR>
+Algorithm:<div id="slidertext">normal</div>
+<div class="slidecontainer">
+<input type="range" min="1" max="3" value="2" step="1" class="slider" id="weightrange" onchange="sliderlegend()">
+</div>
+
+<button type=button onclick="calculateweights()">Get Winner!</button>
+
+
+<div id="winner"></div>
 </div>
