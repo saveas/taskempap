@@ -18,16 +18,18 @@ text-transform: none;
 </STYLE>
 <SCRIPT>
 
+nplayers=15;
+
 function doStuff(data) {
 document.getElementById('loading').innerHTML=''
 
-for (i = 1; i < 16; i++) { 
+for (i = 1; i < nplayers+1; i++) { 
   document.getElementById('input'+i).value='';
 }
 
 for (i = 1; i < data.length-1; i++) { 
 
-  if (i<16) { 	
+  if (i<nplayers+1) {   
   document.getElementById('input'+i).value=data[i][1]+' / ' +data[i][4];
 }
 
@@ -48,7 +50,7 @@ function parseData(url, callBack) {
 }
 
 function errorAlert() {
-	alert('try again!')
+  alert('try again!')
 }
 
 
@@ -58,13 +60,12 @@ s=document.getElementById('weightrange').value;
 if (s==1) {p=1;}
 if (s==2) {p=2;}
 if (s==3) {p=4;}
-min=16
+min=parseInt(nplayers)+1
+
 max=1
 
-result= 16-Math.floor(min + (max - min) * Math.pow(Math.random(), p));
+result= min-Math.floor(min + (max - min) * Math.pow(Math.random(), p));
 
-
-//console.log(result);
 
 document.getElementById('winner').innerHTML='The Winner is:<BR>'+document.getElementById('input'+result).value;
 
@@ -77,6 +78,104 @@ if (s==1) {document.getElementById('slidertext').innerHTML='same chance for all'
 if (s==2) {document.getElementById('slidertext').innerHTML='normal';}
 if (s==3) {document.getElementById('slidertext').innerHTML='boost top players';}
 }
+
+
+function playercount(n) {
+nplayers=n;
+if (n==5) {
+document.getElementById('input1').style.display="block"
+document.getElementById('input2').style.display="block"
+document.getElementById('input3').style.display="block"
+document.getElementById('input4').style.display="block"
+document.getElementById('input5').style.display="block"
+document.getElementById('input6').style.display="none"
+document.getElementById('input7').style.display="none"
+document.getElementById('input8').style.display="none"
+document.getElementById('input9').style.display="none"
+document.getElementById('input10').style.display="none"
+document.getElementById('input11').style.display="none"
+document.getElementById('input12').style.display="none"
+document.getElementById('input13').style.display="none"
+document.getElementById('input14').style.display="none"
+document.getElementById('input15').style.display="none"
+document.getElementById('input16').style.display="none"
+document.getElementById('input17').style.display="none"
+document.getElementById('input18').style.display="none"
+document.getElementById('input19').style.display="none"
+document.getElementById('input20').style.display="none"
+}
+
+if (n==10) {
+document.getElementById('input1').style.display="block"
+document.getElementById('input2').style.display="block"
+document.getElementById('input3').style.display="block"
+document.getElementById('input4').style.display="block"
+document.getElementById('input5').style.display="block"
+document.getElementById('input6').style.display="block"
+document.getElementById('input7').style.display="block"
+document.getElementById('input8').style.display="block"
+document.getElementById('input9').style.display="block"
+document.getElementById('input10').style.display="block"
+document.getElementById('input11').style.display="none"
+document.getElementById('input12').style.display="none"
+document.getElementById('input13').style.display="none"
+document.getElementById('input14').style.display="none"
+document.getElementById('input15').style.display="none"
+document.getElementById('input16').style.display="none"
+document.getElementById('input17').style.display="none"
+document.getElementById('input18').style.display="none"
+document.getElementById('input19').style.display="none"
+document.getElementById('input20').style.display="none"
+}
+
+if (n==15) {
+document.getElementById('input1').style.display="block"
+document.getElementById('input2').style.display="block"
+document.getElementById('input3').style.display="block"
+document.getElementById('input4').style.display="block"
+document.getElementById('input5').style.display="block"
+document.getElementById('input6').style.display="block"
+document.getElementById('input7').style.display="block"
+document.getElementById('input8').style.display="block"
+document.getElementById('input9').style.display="block"
+document.getElementById('input10').style.display="block"
+document.getElementById('input11').style.display="block"
+document.getElementById('input12').style.display="block"
+document.getElementById('input13').style.display="block"
+document.getElementById('input14').style.display="block"
+document.getElementById('input15').style.display="block"
+document.getElementById('input16').style.display="none"
+document.getElementById('input17').style.display="none"
+document.getElementById('input18').style.display="none"
+document.getElementById('input19').style.display="none"
+document.getElementById('input20').style.display="none"
+}
+
+if (n==20) {
+document.getElementById('input1').style.display="block"
+document.getElementById('input2').style.display="block"
+document.getElementById('input3').style.display="block"
+document.getElementById('input4').style.display="block"
+document.getElementById('input5').style.display="block"
+document.getElementById('input6').style.display="block"
+document.getElementById('input7').style.display="block"
+document.getElementById('input8').style.display="block"
+document.getElementById('input9').style.display="block"
+document.getElementById('input10').style.display="block"
+document.getElementById('input11').style.display="block"
+document.getElementById('input12').style.display="block"
+document.getElementById('input13').style.display="block"
+document.getElementById('input14').style.display="block"
+document.getElementById('input15').style.display="block"
+document.getElementById('input16').style.display="block"
+document.getElementById('input17').style.display="block"
+document.getElementById('input18').style.display="block"
+document.getElementById('input19').style.display="block"
+document.getElementById('input20').style.display="block"
+}
+
+
+}
 </SCRIPT>
 
 <h1>Taskempap Tour Winner Pickup!</h1>
@@ -84,33 +183,40 @@ if (s==3) {document.getElementById('slidertext').innerHTML='boost top players';}
 <div style="width:600px">
 enter tournament tag: <input type="test" id="tourtag" value="2PQR0LQ2"</input><button type=button onclick="parseData('https://cors.io/?https://royaleapi.com/tournament/'+document.getElementById('tourtag').value+'/csv', doStuff);">Get Players!</button><div style="float:right" id="loading"></div><BR><BR>
 
+<input type="radio" name="YesNo" value="5" onclick="playercount(this.value);">5 players<br>
+<input type="radio" name="YesNo" value="10" onclick="playercount(this.value);">10 players<br>
+<input type="radio" name="YesNo" value="15" checked onclick="playercount(this.value);">15 players<br>
+<input type="radio" name="YesNo" value="20" onclick="playercount(this.value);">20 players<br>
+<br>
 
+<input type="text" id="input1" value="" style="display:block"></input>
+<input type="text" id="input2" value="" style="display:block"></input>
+<input type="text" id="input3" value="" style="display:block"></input>
+<input type="text" id="input4" value="" style="display:block"></input>
+<input type="text" id="input5" value="" style="display:block"></input>
+<input type="text" id="input6" value="" style="display:block"></input>
+<input type="text" id="input7" value="" style="display:block"></input>
+<input type="text" id="input8" value="" style="display:block"></input>
+<input type="text" id="input9" value="" style="display:block"></input>
+<input type="text" id="input10" value="" style="display:block"></input>
+<input type="text" id="input11" value="" style="display:block"></input>
+<input type="text" id="input12" value="" style="display:block"></input>
+<input type="text" id="input13" value="" style="display:block"></input>
+<input type="text" id="input14" value="" style="display:block"></input>
+<input type="text" id="input15" value="" style="display:block"></input>
+<input type="text" id="input16" value="" style="display:none"></input>
+<input type="text" id="input17" value="" style="display:none"></input>
+<input type="text" id="input18" value="" style="display:none"></input>
+<input type="text" id="input19" value="" style="display:none"></input>
+<input type="text" id="input20" value="" style="display:none"></input>
 
-1. <input type="text" id="input1" value=""></input><BR>
-2. <input type="text" id="input2" value=""></input><BR>
-3. <input type="text" id="input3" value=""></input><BR>
-4. <input type="text" id="input4" value=""></input><BR>
-5. <input type="text" id="input5" value=""></input><BR>
-6. <input type="text" id="input6" value=""></input><BR>
-7. <input type="text" id="input7" value=""></input><BR>
-8. <input type="text" id="input8" value=""></input><BR>
-9. <input type="text" id="input9" value=""></input><BR>
-10.<input type="text" id="input10" value=""></input><BR>
-11.<input type="text" id="input11" value=""></input><BR>
-12.<input type="text" id="input12" value=""></input><BR>
-13.<input type="text" id="input13" value=""></input><BR>
-14.<input type="text" id="input14" value=""></input><BR>
-15.<input type="text" id="input15" value=""></input><BR>
-
-
-<BR><BR>
 Algorithm:<div id="slidertext">normal</div>
 <div class="slidecontainer">
 <input type="range" min="1" max="3" value="2" step="1" class="slider" id="weightrange" onchange="sliderlegend()">
 </div>
 
 <button type=button onclick="calculateweights()">Get Winner!</button>
-
-
-<div id="winner"></div>
 </div>
+
+<div style="float:left" id="winner"></div>
+
