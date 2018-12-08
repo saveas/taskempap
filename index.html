@@ -8,9 +8,7 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
-</head>
+
 
 
 
@@ -29,34 +27,51 @@ text-transform: none;
 }
 </STYLE>
 <SCRIPT>
-nplayers=15;
-function doStuff(data) {
-document.getElementById('loading').innerHTML=''
-for (i = 1; i < nplayers; i++) { 
 
-  document.getElementById('input'+i).value='';
+
+nplayers=15;
+function parseData(tag) {
+
+document.getElementById('loading').innerHTML='<b>searching...</b>';
+
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "dataType": "json",
+  "url": "https://api.royaleapi.com/tournament/"+tag,
+  "method": "GET",
+  "headers": {
+    "auth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ2LCJpZGVuIjoiMjAwODYxMjAzNDQ5MzgwODc0IiwibWQiOnsidXNlcm5hbWUiOiJvIHBhcHBvdXMiLCJrZXlWZXJzaW9uIjozLCJkaXNjcmltaW5hdG9yIjoiNDI3OCJ9LCJ0cyI6MTU0NDI4NjYzNzg1Mn0.5n7hKFc4JbMRoQq2-JYhKAdnBnXD8BCUrcDm5sSnDoQ"
+  }
 }
-for (i = 1; i < data.length; i++) { 
-  if (i<=nplayers) {   
-      console.log(i);
-  document.getElementById('input'+i).value=data[i][1]+' / ' +data[i][4];
+
+$.ajax(settings).done(function (response) {
+  //console.log(response)
+  //console.log(response['members'][0]['name']);
+
+document.getElementById('loading').innerHTML=''
+for (i = 0; i < nplayers; i++) { 
+  document.getElementById('input'+(i+1)).value='';
 }
+for (i = 0; i < nplayers; i++) { 
+
+  if (response['members'][i]['clan'] !== null) {
+    document.getElementById('input'+(i+1)).value=response['members'][i]['name'] + ' - ' +response['members'][i]['clan']['name']; 
+  }
+  else {
+    document.getElementById('input'+(i+1)).value=response['members'][i]['name'];
+  }
 }
+
+
+});
+
+
+
 }
-function parseData(url, callBack) {
-    document.getElementById('loading').innerHTML='<b>searching...</b>';
-    Papa.parse(url, {
-        download: true,
-        dynamicTyping: true,
-        error: errorAlert,
-        complete: function(results) {
-            callBack(results.data);
-        }
-    });
-}
-function errorAlert() {
-  alert('try again!')
-}
+
+
+
 function calculateweights() {
 k=0;
 s=document.getElementById('weightrange').value;
@@ -130,7 +145,7 @@ document.getElementById('input20').value=''
 <br>
 
 <div style="width:400px">
-enter tournament tag: <input type="test" id="tourtag" value="20U28C9U"</input><button type=button onclick="parseData('https://cors.io/?https://royaleapi.com/tournament/'+document.getElementById('tourtag').value+'/csv', doStuff);">Get Players!</button><div style="float:right" id="loading"></div><BR><BR>
+enter tournament tag: <input type="test" id="tourtag" value="V2CY88Q"</input><button type=button onclick="parseData(document.getElementById('tourtag').value);">Get Players!</button><div style="float:right" id="loading"></div><BR><BR>
 
 
 Algorithm:<div id="slidertext">normal</div>
