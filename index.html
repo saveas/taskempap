@@ -5,6 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -25,10 +26,48 @@ font-style: normal;
 font-variant: normal;
 text-transform: none;
 }
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 </STYLE>
 <SCRIPT>
-
-
+var counter = 0;
+var data={};
 nplayers=15;
 function parseData(tag) {
 
@@ -48,18 +87,18 @@ var settings = {
 $.ajax(settings).done(function (response) {
   //console.log(response)
   //console.log(response['members'][0]['name']);
-
+data=response;
 document.getElementById('loading').innerHTML=''
 for (i = 0; i < nplayers; i++) { 
   document.getElementById('input'+(i+1)).value='';
 }
 for (i = 0; i < nplayers; i++) { 
 
-  if (response['members'][i]['clan'] !== null) {
-    document.getElementById('input'+(i+1)).value=response['members'][i]['name'] + ' - ' +response['members'][i]['clan']['name']; 
+  if (data['members'][i]['clan'] !== null) {
+    document.getElementById('input'+(i+1)).value=data['members'][i]['name'] + ' - ' +data['members'][i]['clan']['name']; 
   }
   else {
-    document.getElementById('input'+(i+1)).value=response['members'][i]['name'];
+    document.getElementById('input'+(i+1)).value=data['members'][i]['name'];
   }
 }
 
@@ -89,54 +128,43 @@ if (s==1) {document.getElementById('slidertext').innerHTML='same chance for all'
 if (s==2) {document.getElementById('slidertext').innerHTML='normal';}
 if (s==3) {document.getElementById('slidertext').innerHTML='boost top players';}
 }
+
+
 function playercount(n) {
+
 nplayers=n;
-if (n==5) {
 
-document.getElementById('input6').value=''
-document.getElementById('input7').value=''
-document.getElementById('input8').value=''
-document.getElementById('input9').value=''
-document.getElementById('input10').value=''
-document.getElementById('input11').value=''
-document.getElementById('input12').value=''
-document.getElementById('input13').value=''
-document.getElementById('input14').value=''
-document.getElementById('input15').value=''
-document.getElementById('input16').value=''
-document.getElementById('input17').value=''
-document.getElementById('input18').value=''
-document.getElementById('input19').value=''
-document.getElementById('input20').value=''
+for (i = 0; i < 20; i++) { 
+  document.getElementById('input'+(i+1)).value='';
 }
-if (n==10) {
+for (i = 0; i < nplayers; i++) { 
 
-document.getElementById('input11').value=''
-document.getElementById('input12').value=''
-document.getElementById('input13').value=''
-document.getElementById('input14').value=''
-document.getElementById('input15').value=''
-document.getElementById('input16').value=''
-document.getElementById('input17').value=''
-document.getElementById('input18').value=''
-document.getElementById('input19').value=''
-document.getElementById('input20').value=''
+  if (data['members'][i]['clan'] !== null) {
+    document.getElementById('input'+(i+1)).value=data['members'][i]['name'] + ' - ' +data['members'][i]['clan']['name']; 
+  }
+  else {
+    document.getElementById('input'+(i+1)).value=data['members'][i]['name'];
+  }
 }
-if (n==15) {
 
-document.getElementById('input16').value=''
-document.getElementById('input17').value=''
-document.getElementById('input18').value=''
-document.getElementById('input19').value=''
-document.getElementById('input20').value=''
-}
+
+
 
 }
 </SCRIPT>
 
 <h1>Taskempap Tour Winner Pickup!</h1>
 
+
+
+
+
 <div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+          
+
+enter tournament tag: <input type="test" id="tourtag" value="V2CY88Q"</input><button type=button onclick="parseData(document.getElementById('tourtag').value);">Get Players!</button><div style="float:right" id="loading"></div><BR><BR>
 
 <input type="radio" name="YesNo" value="5" onclick="playercount(this.value);">5 players<br>
 <input type="radio" name="YesNo" value="10" onclick="playercount(this.value);">10 players<br>
@@ -144,8 +172,7 @@ document.getElementById('input20').value=''
 <input type="radio" name="YesNo" value="20" onclick="playercount(this.value);">20 players<br>
 <br>
 
-<div style="width:400px">
-enter tournament tag: <input type="test" id="tourtag" value="V2CY88Q"</input><button type=button onclick="parseData(document.getElementById('tourtag').value);">Get Players!</button><div style="float:right" id="loading"></div><BR><BR>
+
 
 
 Algorithm:<div id="slidertext">normal</div>
@@ -153,37 +180,119 @@ Algorithm:<div id="slidertext">normal</div>
 <input type="range" min="1" max="3" value="2" step="1" class="slider" id="weightrange" onchange="sliderlegend()">
 </div>
 
-<button type=button onclick="calculateweights()">Get Winner!</button>
+<button type="button" class="btn btn-primary"  id="winnerbutton">Get Winner!</button>
 
 
-<div  id="winner"></div><BR>
+        </div>
+        
+
+
+
+
+
+        <div class="col-sm-4">
+<input  type="text" id="input1" value="" ></input><BR>
+<input  type="text" id="input2" value="" ></input><BR>
+<input  type="text" id="input3" value="" ></input><BR>
+<input  type="text" id="input4" value="" ></input><BR>
+<input  type="text" id="input5" value="" ></input><BR>
+<input  type="text" id="input6" value="" ></input><BR>
+<input  type="text" id="input7" value="" ></input><BR>
+<input  type="text" id="input8" value="" ></input><BR>
+<input  type="text" id="input9" value="" ></input><BR>
+<input  type="text" id="input10" value="" ></input><BR>
+<input  type="text" id="input11" value="" ></input><BR>
+<input  type="text" id="input12" value="" ></input><BR>
+<input  type="text" id="input13" value="" ></input><BR>
+<input  type="text" id="input14" value="" ></input><BR>
+<input  type="text" id="input15" value="" ></input><BR>
+<input  type="text" id="input16" value="" ></input><BR>
+<input  type="text" id="input17" value="" ></input><BR>
+<input  type="text" id="input18" value="" ></input><BR>
+<input  type="text" id="input19" value="" ></input><BR>
+<input  type="text" id="input20" value="" ></input><BR>
+    
+
+
+        </div>
+
+
+
+
+
+
+
+
+
 </div>
-<BR>
-<div class="container">
-<input type="text" id="input1" value="" ></input><BR>
-<input type="text" id="input2" value="" ></input><BR>
-<input type="text" id="input3" value="" ></input><BR>
-<input type="text" id="input4" value="" ></input><BR>
-<input type="text" id="input5" value="" ></input><BR>
-<input type="text" id="input6" value="" ></input><BR>
-<input type="text" id="input7" value="" ></input><BR>
-<input type="text" id="input8" value="" ></input><BR>
-<input type="text" id="input9" value="" ></input><BR>
-<input type="text" id="input10" value="" ></input><BR>
-<input type="text" id="input11" value="" ></input><BR>
-<input type="text" id="input12" value="" ></input><BR>
-<input type="text" id="input13" value="" ></input><BR>
-<input type="text" id="input14" value="" ></input><BR>
-<input type="text" id="input15" value="" ></input><BR>
-<input type="text" id="input16" value="" ></input><BR>
-<input type="text" id="input17" value="" ></input><BR>
-<input type="text" id="input18" value="" ></input><BR>
-<input type="text" id="input19" value="" ></input><BR>
-<input type="text" id="input20" value="" ></input><BR>
 
+
+
+
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
 
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <div id="winner"><p>The winner is:</p></div>
+  </div>
+
 </div>
+
+<SCRIPT>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("winnerbutton");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+  calculateweights();
+
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</SCRIPT>
+
 </html>
