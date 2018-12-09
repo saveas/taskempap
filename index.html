@@ -8,12 +8,17 @@
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 <STYLE>
+body {
+  font-family: 'Roboto Slab', serif;
+}
+
+
 #winner {
 font-family: "Arial Black", Gadget, sans-serif;
 font-size: 31px;
@@ -62,6 +67,14 @@ text-transform: none;
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+
+.enjoy-css {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #c0c8d6;
+    width:300px;
 }
 
 </STYLE>
@@ -191,26 +204,26 @@ Algorithm:<div id="slidertext">normal</div>
 
 
         <div class="col-sm-4">
-<input  type="text" id="input1" value="" ></input><BR>
-<input  type="text" id="input2" value="" ></input><BR>
-<input  type="text" id="input3" value="" ></input><BR>
-<input  type="text" id="input4" value="" ></input><BR>
-<input  type="text" id="input5" value="" ></input><BR>
-<input  type="text" id="input6" value="" ></input><BR>
-<input  type="text" id="input7" value="" ></input><BR>
-<input  type="text" id="input8" value="" ></input><BR>
-<input  type="text" id="input9" value="" ></input><BR>
-<input  type="text" id="input10" value="" ></input><BR>
-<input  type="text" id="input11" value="" ></input><BR>
-<input  type="text" id="input12" value="" ></input><BR>
-<input  type="text" id="input13" value="" ></input><BR>
-<input  type="text" id="input14" value="" ></input><BR>
-<input  type="text" id="input15" value="" ></input><BR>
-<input  type="text" id="input16" value="" ></input><BR>
-<input  type="text" id="input17" value="" ></input><BR>
-<input  type="text" id="input18" value="" ></input><BR>
-<input  type="text" id="input19" value="" ></input><BR>
-<input  type="text" id="input20" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input1" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input2" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input3" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input4" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input5" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input6" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input7" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input8" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input9" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input10" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input11" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input12" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input13" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input14" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input15" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input16" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input17" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input18" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input19" value="" ></input><BR>
+<input class="enjoy-css" type="text" id="input20" value="" ></input><BR>
     
 
 
@@ -229,25 +242,6 @@ Algorithm:<div id="slidertext">normal</div>
 
 
 
-<div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -260,7 +254,7 @@ Algorithm:<div id="slidertext">normal</div>
   <div class="modal-content">
     <span class="close">&times;</span>
 
-    <div id="winner"><p>The winner is:</p></div>
+    <div id="winner" style="text-align:center;"><p>:oops:</p></div>
   </div>
 
 </div>
@@ -278,8 +272,9 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
-  calculateweights();
 
+  calculateweights();
+  $( "#myModal" ).effect( "shake" );
 }
 
 // When the user clicks on <span> (x), close the modal
