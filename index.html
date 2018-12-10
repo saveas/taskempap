@@ -14,8 +14,12 @@
 
 
 <STYLE>
+@font-face {
+    font-family: "My Custom Font";
+    src: url(https://vignette.wikia.nocookie.net/clashofclans/images/a/a9/Supercell-magic-webfont.ttf/revision/latest?cb=20171119114503) format("truetype");
+}
 body {
-  font-family: 'Roboto Slab', serif;
+  font-family: "My Custom Font", Verdana, Tahoma;
 }
 
 
@@ -166,8 +170,11 @@ for (i = 0; i < nplayers; i++) {
 }
 </SCRIPT>
 
-<h1>Taskempap Tour Winner Pickup!</h1>
+<div class="container">
+    <div class="row">
 
+<h1>Taskempap Tour Winner Pickup!</h1>
+</div>
 
 
 
@@ -190,10 +197,11 @@ enter tournament tag: <input type="test" id="tourtag" value="V2CY88Q"</input><bu
 
 Algorithm:<div id="slidertext">normal</div>
 <div class="slidecontainer">
-<input type="range" min="1" max="3" value="2" step="1" class="slider" id="weightrange" onchange="sliderlegend()">
+<input style="width:100px;" type="range" min="1" max="3" value="2" step="1" class="slider" id="weightrange" onchange="sliderlegend()">
 </div>
+<BR>
 
-<button type="button" class="btn btn-primary"  id="winnerbutton">Get Winner!</button>
+<button type="button" class="btn btn-primary btn-lg"  id="winnerbutton">Get Winner!</button>
 
 
         </div>
